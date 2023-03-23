@@ -1,23 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:http/http.dart' as http;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:test_charts/constant/app_colors.dart';
 import 'package:test_charts/constant/edge_insets_custom.dart';
-import 'package:test_charts/constant/responsive.dart';
 import 'package:test_charts/constant/svg_picture_custom.dart';
 import 'package:test_charts/constant/txt_style.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatPage extends StatefulWidget {
@@ -43,7 +38,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _loadMessagesQuestion();
+    _loadMessages(false);
   }
 
   @override
@@ -53,7 +48,6 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: AppColors.transparent,
         body: Chat(
           messages: _messages,
-          onAttachmentPressed: _handleAttachmentPressed,
           onMessageTap: (context, p1) {
             _handleMessageTap(context, p1);
           },
@@ -205,93 +199,50 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
-  void _handleAttachmentPressed() {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) => SafeArea(
-        child: SizedBox(
-          height: 144,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleImageSelection();
-                },
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('Photo'),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleFileSelection();
-                },
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('File'),
-                ),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('Cancel'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // void _handleFileSelection() async {
+  //   final result = await FilePicker.platform.pickFiles(
+  //     type: FileType.any,
+  //   );
+  //
+  //   if (result != null && result.files.single.path != null) {
+  //     final message = types.FileMessage(
+  //       author: _user,
+  //       createdAt: DateTime.now().millisecondsSinceEpoch,
+  //       id: const Uuid().v4(),
+  //       mimeType: lookupMimeType(result.files.single.path!),
+  //       name: result.files.single.name,
+  //       size: result.files.single.size,
+  //       uri: result.files.single.path!,
+  //     );
+  //     _addMessage(message);
+  //   }
+  // }
 
-  void _handleFileSelection() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-    );
-
-    if (result != null && result.files.single.path != null) {
-      final message = types.FileMessage(
-        author: _user,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        id: const Uuid().v4(),
-        mimeType: lookupMimeType(result.files.single.path!),
-        name: result.files.single.name,
-        size: result.files.single.size,
-        uri: result.files.single.path!,
-      );
-      _addMessage(message);
-    }
-  }
-
-  void _handleImageSelection() async {
-    final result = await ImagePicker().pickImage(
-      imageQuality: 70,
-      maxWidth: 1440,
-      source: ImageSource.gallery,
-    );
-
-    if (result != null) {
-      final bytes = await result.readAsBytes();
-      final image = await decodeImageFromList(bytes);
-
-      final message = types.ImageMessage(
-        author: _user,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        height: image.height.toDouble(),
-        id: const Uuid().v4(),
-        name: result.name,
-        size: bytes.length,
-        uri: result.path,
-        width: image.width.toDouble(),
-      );
-
-      _addMessage(message);
-    }
-  }
+  // void _handleImageSelection() async {
+  //   final result = await ImagePicker().pickImage(
+  //     imageQuality: 70,
+  //     maxWidth: 1440,
+  //     source: ImageSource.gallery,
+  //   );
+  //
+  //   if (result != null) {
+  //     final bytes = await result.readAsBytes();
+  //     final image = await decodeImageFromList(bytes);
+  //
+  //     final message = types.ImageMessage(
+  //       author: _user,
+  //       createdAt: DateTime.now().millisecondsSinceEpoch,
+  //       height: image.height.toDouble(),
+  //       id: const Uuid().v4(),
+  //       name: result.name,
+  //       size: bytes.length,
+  //       uri: result.path,
+  //       width: image.width.toDouble(),
+  //     );
+  //
+  //     _addMessage(message);
+  //   }
+  // }
 
   void _handleMessageTap(BuildContext _, types.Message message) async {
     if (message is types.FileMessage) {
@@ -336,11 +287,11 @@ class _ChatPageState extends State<ChatPage> {
       await OpenFilex.open(localPath);
     }
 
-    if (message is types.TextMessage){
-      if(message.text.startsWith('http')){
-        await _launchUrl(Uri.parse(message.text));
-      }
-    }
+    // if (message is types.TextMessage){
+    //   if(message.text.startsWith('http')){
+    //     await _launchUrl(Uri.parse(message.text));
+    //   }
+    // }
   }
 
   void _handlePreviewDataFetched(
@@ -368,34 +319,34 @@ class _ChatPageState extends State<ChatPage> {
     _addMessage(textMessage);
     if(textMessage.text == 'Where can I find energy-efficient retailers?'){
       _messages.clear();
-      _loadMessagesAnswer();
+      _loadMessages(true);
     }
   }
 
-  void _loadMessagesQuestion() async {
-    final response = await rootBundle.loadString('assets/messages_bot.json');
-    final messagesAnswer = (jsonDecode(response) as List)
-        .map((e) => types.Message.fromJson(e as Map<String, dynamic>))
-        .toList();
+  void _loadMessages(bool isAnswer) async {
+    if(!isAnswer){
+      final response = await rootBundle.loadString('assets/messages_bot.json');
+      final messagesAnswer = (jsonDecode(response) as List)
+          .map((e) => types.Message.fromJson(e as Map<String, dynamic>))
+          .toList();
 
-    setState(() {
-      _messages = messagesAnswer;
-    });
-  }
-
-  void _loadMessagesAnswer() async {
-    final response = await rootBundle.loadString('assets/messages.json');
-    final messagesAnswer = (jsonDecode(response) as List)
-        .map((e) => types.Message.fromJson(e as Map<String, dynamic>))
-        .toList();
-    _messages.addAll(messagesAnswer);
-  }
-
-  Future<void> _launchUrl(Uri uri) async {
-    if (!await launchUrl(uri)) {
-      throw Exception('Could not launch $uri');
+      setState(() {
+        _messages = messagesAnswer;
+      });
+    }else{
+      final response = await rootBundle.loadString('assets/messages.json');
+      final messagesAnswer = (jsonDecode(response) as List)
+          .map((e) => types.Message.fromJson(e as Map<String, dynamic>))
+          .toList();
+      _messages.addAll(messagesAnswer);
     }
   }
+
+  // Future<void> _launchUrl(Uri uri) async {
+  //   if (!await launchUrl(uri)) {
+  //     throw Exception('Could not launch $uri');
+  //   }
+  // }
 
   getAvatarUser(String userID){
     for(types.Message data in _messages){
