@@ -1,0 +1,86 @@
+[
+  {
+    "author": {
+      "firstName": "Volta",
+      "id": "4c2307ba-3d40-442f-b1ff-b271f639046a",
+      "lastName": "Bot"
+    },
+    "createdAt": 1679556493364,
+    "id": "64747b28-df19-4a0c-8c47-316dc3546e3c",
+    "status": "seen",
+    "text": "How can I compare prices and efficiency ratings?",
+    "type": "system"
+  },
+  {
+    "author": {
+      "firstName": "Volta",
+      "id": "4c2307ba-3d40-442f-b1ff-b271f639046a",
+      "lastName": "Bot"
+    },
+    "createdAt": 1679556493364,
+    "id": "6a1a4351-cf05-4d0c-9d0f-47ed378b6112",
+    "status": "seen",
+    "text": "Where can I find energy-efficient retailers?",
+    "type": "system"
+  },
+  {
+    "author": {
+      "firstName": "Volta",
+      "id": "4c2307ba-3d40-442f-b1ff-b271f639046a",
+      "lastName": "Bot"
+    },
+    "createdAt": 1679556493364,
+    "id": "38681a33-2563-42aa-957b-cfc12f791d16",
+    "status": "seen",
+    "text": "What grand rebates are available for energy upgrades?",
+    "type": "system"
+  },
+  {
+    "author": {
+      "firstName": "Volta",
+      "id": "4c2307ba-3d40-442f-b1ff-b271f639046a",
+      "lastName": "Bot"
+    },
+    "createdAt": 1679556493364,
+    "id": "113bb2e8-f74e-42cd-aa30-4085a0f52c58",
+    "status": "seen",
+    "text": "How do I apply for a rebate for an energy-efficient appliance?",
+    "type": "system"
+  },
+  {
+    "author": {
+      "firstName": "Volta",
+      "id": "4c2307ba-3d40-442f-b1ff-b271f639046a",
+      "lastName": "Bot"
+    },
+    "createdAt": 1679556493364,
+    "id": "22212d42-1252-4641-9786-d6f83b2ce4a8",
+    "status": "seen",
+    "text": "How can I reduce my energy bills?",
+    "type": "system"
+  },
+  {
+    "author": {
+      "firstName": "Volta",
+      "id": "4c2307ba-3d40-442f-b1ff-b271f639046a",
+      "lastName": "Bot"
+    },
+    "createdAt": 1679556493364,
+    "id": "afc2269a-374b-4382-8864-b3b60d1e8cd7",
+    "status": "seen",
+    "text": "How much energy am I using?",
+    "type": "system"
+  },
+  {
+    "author": {
+      "firstName": "Volta",
+      "id": "4c2307ba-3d40-442f-b1ff-b271f639045t",
+      "lastName": "EBot"
+    },
+    "createdAt": 1679556493364,
+    "id": "634b2f0b-2486-4bfe-b36d-1c7d6313c7b3",
+    "status": "seen",
+    "text": "Hello! I'am VoltaBot, an AI energy engineer, How can I Help you today?",
+    "type": "text"
+  }
+]

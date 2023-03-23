@@ -1,0 +1,26 @@
+[
+  {
+    "author": {
+      "firstName": "Volta",
+      "id": "4c2307ba-3d40-442f-b1ff-b271f63904ca",
+      "lastName": "System"
+    },
+    "createdAt": 1655624469000,
+    "id": "c67ed376-52bf-4d4e-ba2a-7a0f8467b22a",
+    "status": "seen",
+    "text": "Search plan",
+    "type": "system"
+  },
+  {
+    "author": {
+      "firstName": "Volta",
+      "id": "4c2307ba-3d40-442f-b1ff-b271f639045t",
+      "lastName": "EBot"
+    },
+    "createdAt": 1655624468000,
+    "id": "02797655-4d73-402e-a319-50fde79e2bc4",
+    "status": "seen",
+    "text": "I have a search function that allow you to find energy-efficient retailers in your area. Simply click on the 'Plan' tab in the bottom menu, and enter your location on search bar with the  type of product or appliance you're looking for. Or click on button to move it",
+    "type": "text"
+  }
+]
